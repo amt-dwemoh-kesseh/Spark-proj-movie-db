@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  pyspark-jupyter:
+    image: jupyter/pyspark-notebook:latest
+    container_name: tmdb-pyspark-analysis
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/home/jovyan/work
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - GRANT_SUDO=yes
+    command: >
+      bash -c "pip install python-dotenv &&
+               start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+    restart: unless-stopped
